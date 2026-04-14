@@ -24,7 +24,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid price amount" }, { status: 500 });
     }
 
-    // buildAcceptPaymentInstructions handles SOL wrapping/unwrapping automatically
+    // buildAcceptPaymentInstructions handles SOL wrapping/unwrapping automatically.
+    // Bump computeUnitLimit: default 100K isn't enough when paying with native SOL
+    // (wrap/unwrap + create ATA + accept-payment combined exceed default budget).
+    // Also add a small priority fee so the tx lands during congestion.
     const instructions = await agent.buildAcceptPaymentInstructions({
       user: userPublicKey,
       currencyMint,
@@ -32,6 +35,8 @@ export async function POST(req: NextRequest) {
       memo: String(invoiceParams.memo),
       startTime: String(invoiceParams.startTime),
       endTime: String(invoiceParams.endTime),
+      computeUnitLimit: 300_000,
+      computeUnitPrice: 50_000, // micro-lamports per CU — priority fee
     });
 
     const { blockhash } = await connection.getLatestBlockhash("confirmed");
