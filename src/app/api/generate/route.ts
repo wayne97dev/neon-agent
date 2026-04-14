@@ -31,16 +31,37 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Flux returns an array of file URLs
-    const images = output as string[];
-    if (!images || images.length === 0) {
+    // Replicate SDK v1+ returns FileOutput[] objects, not URL strings.
+    // Normalize: extract a URL from either shape.
+    const items = Array.isArray(output) ? output : [output];
+    if (items.length === 0) {
+      return NextResponse.json({ error: "No image generated" }, { status: 500 });
+    }
+
+    const first = items[0];
+    let imageUrl: string;
+
+    if (typeof first === "string") {
+      // Legacy string URL
+      imageUrl = first;
+    } else if (first && typeof (first as { url?: () => URL | string }).url === "function") {
+      // FileOutput object — .url() returns a URL object or string
+      const u = (first as { url: () => URL | string }).url();
+      imageUrl = u instanceof URL ? u.toString() : String(u);
+    } else {
+      // Fallback: try toString
+      imageUrl = String(first);
+    }
+
+    if (!imageUrl || !imageUrl.startsWith("http")) {
+      console.error("Invalid image URL from Replicate:", first);
       return NextResponse.json(
-        { error: "No image generated" },
+        { error: "Invalid image URL returned from model" },
         { status: 500 },
       );
     }
 
-    return NextResponse.json({ imageUrl: images[0] });
+    return NextResponse.json({ imageUrl });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Generation failed";
     console.error("Generate error:", message);
