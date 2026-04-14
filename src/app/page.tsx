@@ -195,7 +195,7 @@ export default function Home() {
               NEON
             </h1>
             <p className="mt-3 text-xs sm:text-sm tracking-[0.3em] uppercase font-mono" style={{ color: "rgba(34,211,238,0.8)" }}>
-              AI Image Generator
+              Solana Agent
             </p>
             <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full"
                  style={{ background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.2)" }}>
