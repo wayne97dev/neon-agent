@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
-  --foreground: #e0e0e0;
-  --neon-cyan: #00f0ff;
-  --neon-purple: #a855f7;
-  --neon-pink: #ec4899;
+  --background: #000000;
+  --foreground: #e8f5e9;
+  --neon-green: #4ade80;
+  --neon-cyan: #22d3ee;
+  --neon-lime: #84cc16;
+  --pill-green: #10b981;
+  --matrix-green: #00ff41;
 }
 
 @theme inline {
@@ -13,9 +15,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-neon-green: var(--neon-green);
   --color-neon-cyan: var(--neon-cyan);
-  --color-neon-purple: var(--neon-purple);
-  --color-neon-pink: var(--neon-pink);
+  --color-matrix-green: var(--matrix-green);
 }
 
 body {
@@ -24,83 +26,83 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Cyberpunk grid background */
+/* Matrix grid background */
 .cyber-grid {
   background-image:
-    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(74, 222, 128, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 222, 128, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
-/* Neon glow effects */
+/* Neon glow effects - green palette */
 .neon-glow {
   box-shadow:
-    0 0 5px rgba(0, 240, 255, 0.15),
-    0 0 20px rgba(0, 240, 255, 0.05);
+    0 0 5px rgba(74, 222, 128, 0.15),
+    0 0 20px rgba(74, 222, 128, 0.05);
 }
 
 .neon-glow-strong {
   box-shadow:
-    0 0 5px rgba(0, 240, 255, 0.3),
-    0 0 20px rgba(0, 240, 255, 0.1),
-    0 0 40px rgba(0, 240, 255, 0.05);
+    0 0 8px rgba(74, 222, 128, 0.4),
+    0 0 25px rgba(74, 222, 128, 0.15),
+    0 0 50px rgba(74, 222, 128, 0.08);
 }
 
-.neon-glow-purple {
+.neon-glow-cyan {
   box-shadow:
-    0 0 5px rgba(168, 85, 247, 0.3),
-    0 0 20px rgba(168, 85, 247, 0.1),
-    0 0 40px rgba(168, 85, 247, 0.05);
+    0 0 8px rgba(34, 211, 238, 0.4),
+    0 0 25px rgba(34, 211, 238, 0.15),
+    0 0 50px rgba(34, 211, 238, 0.08);
 }
 
 /* Neon text glow */
 .neon-text {
   text-shadow:
-    0 0 7px rgba(0, 240, 255, 0.6),
-    0 0 20px rgba(0, 240, 255, 0.3),
-    0 0 40px rgba(0, 240, 255, 0.15);
+    0 0 7px rgba(74, 222, 128, 0.6),
+    0 0 20px rgba(74, 222, 128, 0.3),
+    0 0 40px rgba(74, 222, 128, 0.15);
 }
 
-.neon-text-purple {
+.neon-text-cyan {
   text-shadow:
-    0 0 7px rgba(168, 85, 247, 0.6),
-    0 0 20px rgba(168, 85, 247, 0.3),
-    0 0 40px rgba(168, 85, 247, 0.15);
+    0 0 7px rgba(34, 211, 238, 0.6),
+    0 0 20px rgba(34, 211, 238, 0.3),
+    0 0 40px rgba(34, 211, 238, 0.15);
 }
 
 /* Glow pulse animation */
 @keyframes glow-pulse {
   0%, 100% {
     box-shadow:
-      0 0 5px rgba(0, 240, 255, 0.3),
-      0 0 20px rgba(0, 240, 255, 0.1);
+      0 0 5px rgba(74, 222, 128, 0.3),
+      0 0 20px rgba(74, 222, 128, 0.1);
   }
   50% {
     box-shadow:
-      0 0 10px rgba(0, 240, 255, 0.5),
-      0 0 30px rgba(0, 240, 255, 0.2),
-      0 0 50px rgba(0, 240, 255, 0.1);
+      0 0 10px rgba(74, 222, 128, 0.5),
+      0 0 30px rgba(74, 222, 128, 0.2),
+      0 0 50px rgba(74, 222, 128, 0.1);
   }
 }
 
 @keyframes text-glow-pulse {
   0%, 100% {
     text-shadow:
-      0 0 7px rgba(0, 240, 255, 0.6),
-      0 0 20px rgba(0, 240, 255, 0.3);
+      0 0 7px rgba(74, 222, 128, 0.6),
+      0 0 20px rgba(74, 222, 128, 0.3);
   }
   50% {
     text-shadow:
-      0 0 10px rgba(0, 240, 255, 0.8),
-      0 0 30px rgba(0, 240, 255, 0.5),
-      0 0 60px rgba(0, 240, 255, 0.2);
+      0 0 10px rgba(74, 222, 128, 0.8),
+      0 0 30px rgba(74, 222, 128, 0.5),
+      0 0 60px rgba(74, 222, 128, 0.2);
   }
 }
 
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -108,50 +110,88 @@ body {
   }
 }
 
-.animate-glow-pulse {
-  animation: glow-pulse 2.5s ease-in-out infinite;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
-.animate-text-glow {
-  animation: text-glow-pulse 3s ease-in-out infinite;
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.animate-fade-in {
-  animation: fade-in-up 0.5s ease-out both;
+/* Matrix rain effect */
+@keyframes matrix-fall {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
 }
 
-/* Neon button */
+.animate-glow-pulse { animation: glow-pulse 2.5s ease-in-out infinite; }
+.animate-text-glow { animation: text-glow-pulse 3s ease-in-out infinite; }
+.animate-fade-in { animation: fade-in-up 0.6s ease-out both; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 12s linear infinite; }
+
+/* Neon button - green gradient */
 .btn-neon {
-  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+  background: linear-gradient(135deg, #4ade80, #22d3ee);
   transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-neon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.btn-neon:hover:not(:disabled)::before {
+  transform: translateX(100%);
 }
 
 .btn-neon:hover:not(:disabled) {
   box-shadow:
-    0 0 10px rgba(0, 240, 255, 0.4),
-    0 0 30px rgba(168, 85, 247, 0.2);
-  filter: brightness(1.1);
+    0 0 15px rgba(74, 222, 128, 0.5),
+    0 0 30px rgba(34, 211, 238, 0.3);
+  filter: brightness(1.15);
 }
 
 .btn-neon:disabled {
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  background: linear-gradient(135deg, #0f1c14, #0a1818);
   opacity: 0.6;
+  color: rgba(255,255,255,0.4);
 }
 
-/* Override wallet adapter button styling */
+/* Wallet adapter button override */
 .wallet-adapter-button {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(168, 85, 247, 0.15)) !important;
-  border: 1px solid rgba(0, 240, 255, 0.25) !important;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(34, 211, 238, 0.15)) !important;
+  border: 1px solid rgba(74, 222, 128, 0.3) !important;
   border-radius: 12px !important;
   transition: all 0.25s ease !important;
+  font-family: var(--font-geist-mono) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
 }
 
 .wallet-adapter-button:hover {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(168, 85, 247, 0.25)) !important;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2) !important;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.25), rgba(34, 211, 238, 0.25)) !important;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.25) !important;
+  border-color: rgba(74, 222, 128, 0.5) !important;
 }
 
-/* Scanline overlay */
+.wallet-adapter-button-trigger {
+  background: linear-gradient(135deg, #4ade80, #22d3ee) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+}
+
+/* Scanlines overlay */
 .scanlines::after {
   content: "";
   position: absolute;
@@ -160,8 +200,19 @@ body {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 240, 255, 0.008) 2px,
-    rgba(0, 240, 255, 0.008) 4px
+    rgba(74, 222, 128, 0.012) 2px,
+    rgba(74, 222, 128, 0.012) 4px
   );
   pointer-events: none;
+  z-index: 1;
+}
+
+/* Vignette */
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+  z-index: 2;
 }
