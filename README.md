@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# $NEON — Solana Agent
 
-## Getting Started
+Pay-gated AI image generator powered by [pump.fun](https://pump.fun) tokenized agents.
+Users pay 0.1 SOL, payment is verified on-chain, then they can generate unlimited
+AI images via Flux. Every payment triggers automatic buyback & burn of $NEON.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, TypeScript, Tailwind)
+- **@pump-fun/agent-payments-sdk** — on-chain payment verification
+- **@solana/wallet-adapter** — Phantom / Solflare wallet integration
+- **Replicate** (Flux-schnell) — AI image generation
+
+## Environment variables
+
+Create `.env.local` in the project root with:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+SOLANA_RPC_URL=https://rpc.solanatracker.io/public
+NEXT_PUBLIC_SOLANA_RPC_URL=https://rpc.solanatracker.io/public
+AGENT_TOKEN_MINT_ADDRESS=<your-pump.fun-token-mint>
+CURRENCY_MINT=So11111111111111111111111111111111111111112
+PRICE_AMOUNT=100000000
+REPLICATE_API_TOKEN=<your-replicate-token>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open http://localhost:3000
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+Pushes to `main` auto-deploy via Netlify. Set the env vars above in
+Netlify Site settings → Environment variables (never commit them).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Flow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+1. User connects wallet (Phantom/Solflare)
+2. Clicks "Pay 0.1 SOL"
+3. Server builds payment tx via agent-payments-sdk
+4. User signs with wallet → tx sent on-chain
+5. Server verifies via validateInvoicePayment
+6. On success: image generator unlocks
+7. User prompts → Flux generates image
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+90% of each payment is auto-routed to $NEON buyback & burn, 10% to creator.
